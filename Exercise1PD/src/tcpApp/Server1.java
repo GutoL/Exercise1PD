@@ -15,7 +15,7 @@ public class Server1 {
     
     public static void main(String args[]){
        
-         ConnectionManager cm = new ConnectionManager();
+        ConnectionManager cm = new ConnectionManager();
         
         cm.startServerTCP(2424);
         

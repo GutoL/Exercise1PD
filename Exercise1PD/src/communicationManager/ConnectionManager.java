@@ -67,6 +67,18 @@ public class ConnectionManager {
         }
     }// fim do método startServerTCP
     
+    public boolean startServerUDP(int port){
+        
+        try {
+            
+            this.datagramSocket = new DatagramSocket(port);
+            return true;
+            
+        } catch (Exception e) {
+            return false;
+        }
+    }// fim do método startServerUDP
+    
     
     /**
      * method that wait client requisitions
@@ -79,6 +91,19 @@ public class ConnectionManager {
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }//fim do método listenerTCP
+    
+     public DatagramPacket listenerUDP(){
+        
+        try {
+            
+            byte[] receiveData=new byte[1024];
+            DatagramPacket datagramPacket=new DatagramPacket(receiveData, receiveData.length);
+            this.datagramSocket.receive(datagramPacket);
+            return datagramPacket;
+        } catch (Exception e) {
+            return null;
         }
     }//fim do método listenerTCP
     
@@ -149,11 +174,11 @@ public class ConnectionManager {
      * @param port port that server will listen
      * @return true or false
      */
-    public boolean sendDataUDP(byte []data, int port){
+    public boolean sendDataUDP(byte []data, String address, int port){
         
         try {
             this.datagramSocket = new DatagramSocket();
-            InetAddress inetAddress = InetAddress.getByName("localhost"); // localhost ? :/
+            InetAddress inetAddress = InetAddress.getByName(address);
             DatagramPacket udpPacket = new DatagramPacket(data,data.length,inetAddress,port);
             
             this.datagramSocket.send(udpPacket);
@@ -171,23 +196,25 @@ public class ConnectionManager {
      * @param port port that will listen
      * @return data received or null
      */
-    public DatagramPacket listenerUDP(int port){
+    public DatagramPacket getDataUDP(){
         
         try {
             
-            this.datagramSocket = new DatagramSocket(port);
+            //this.datagramSocket = new DatagramSocket(port);
             byte receivedData [] = new byte[1024];
             
             DatagramPacket datagramPacket = new DatagramPacket(receivedData,receivedData.length);
-            
+            System.out.println("communicationManager.ConnectionManager.getDataUDP()");
             this.datagramSocket.receive(datagramPacket);
             this.datagramSocket.close();
             
-                    
-            return datagramPacket;        
+            
+            return datagramPacket;      
+            
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-    }// fim do método listenerUDP
+    }// fim do método getDatasUDP
     
 }

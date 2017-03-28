@@ -6,7 +6,6 @@
 package tcpApp;
 
 import communicationManager.ConnectionManager;
-import java.net.Socket;
 
 /**
  *
