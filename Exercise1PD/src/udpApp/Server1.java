@@ -24,8 +24,7 @@ public class Server1 {
             
              DatagramPacket datagramPacket=cm.listenerUDP();
              if(datagramPacket!=null){
-                System.out.println("udpApp.Server1.main()");
-                Thread1 t1 = new Thread1(datagramPacket);
+               Thread1 t1 = new Thread1(cm,datagramPacket);
                 t1.start();    
              
              }

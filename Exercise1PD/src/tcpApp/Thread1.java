@@ -37,6 +37,7 @@ public class Thread1 extends Thread{
                 
                 data = this.cm2.getDataTCP();
                 this.cm1.sendDataTCP(data);
+                System.out.println("Enviando para o cliente");
             }
             
         } catch (Exception e) {

@@ -25,7 +25,7 @@ public class Server2 {
             
             DatagramPacket datagramPacket=cm.listenerUDP();
             if(datagramPacket!=null){
-                Thread2 t2 = new Thread2(datagramPacket);
+                Thread2 t2 = new Thread2(cm,datagramPacket);
                 t2.start();
             
             }

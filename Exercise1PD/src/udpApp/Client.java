@@ -8,6 +8,10 @@ package udpApp;
 import communicationManager.ConnectionManager;
 import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,15 +24,22 @@ public class Client {
     public static void main(String args[]) throws UnsupportedEncodingException{
         
        ConnectionManager cm = new ConnectionManager();
+        try {
+            InetAddress address=InetAddress.getByName(ADDRESS);
        
-       cm.sendDataUDP("div,1,2".getBytes(), ADDRESS, PORT);
+       
+            cm.sendDataUDP("div,15,2".getBytes(), address, PORT);
            
-       System.out.println("ClienteUDP: Enviei, esperando resposta");
+            System.out.println("ClienteTCP: Enviando operação. Esperando resposta...");
            
-       DatagramPacket serverPacket=cm.getDataUDP();
-       byte[] data = serverPacket.getData();
-       String msg = new String(data, "UTF-8");
-       System.out.println(msg);
+            DatagramPacket serverPacket=cm.getDataUDP();
+            byte[] data = serverPacket.getData();
+            String msg = new String(data, "UTF-8");
+            System.out.println(msg);
+            cm.closeConnectionUDP();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
     }
     

@@ -7,6 +7,8 @@ package udpApp;
 
 import communicationManager.ConnectionManager;
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 /**
  *
@@ -23,35 +25,34 @@ public class Thread1 extends Thread{
     public Thread1() {
     }
     
-    public Thread1(DatagramPacket datagramPacket){
+    public Thread1(ConnectionManager connMannager,DatagramPacket datagramPacket){
        this.receiveData = datagramPacket;
+       this.cm1=connMannager;
     }
    
     
     public void run(){
         
-        try {
-            this.cm1 = new ConnectionManager();
-       
+        try {   
             DatagramPacket clientUdpPacket = this.receiveData;
             byte[] clientData = clientUdpPacket.getData();
             
-            System.out.println("Thread1");
             int clientPort=clientUdpPacket.getPort();
-            String clientAddress=clientUdpPacket.getAddress().toString();
+            InetAddress clientAddress=clientUdpPacket.getAddress();
+            InetAddress server2Address=InetAddress.getByName(SERVER2_ADDRESS);
             
             this.cm2 = new ConnectionManager();
-            System.out.println("udpApp.Thread1.run()"+clientData);
-            this.cm2.sendDataUDP(clientData, SERVER2_ADDRESS, SERVER2_PORT);// enviando para o segundo servidor
+            this.cm2.sendDataUDP(clientData, server2Address, SERVER2_PORT);// enviando para o segundo servidor
             System.out.println("Enviando para o servidor 2");
                 
-            //ConnectionManager cm3=new ConnectionManager()
-            DatagramPacket serverUdpPacket = this.cm1.getDataUDP();
+            DatagramPacket serverUdpPacket = this.cm2.getDataUDP();
             byte[] serverData = serverUdpPacket.getData();
             
             this.cm1.sendDataUDP(serverData,clientAddress,clientPort);
+            System.out.println("Enviando para o cliente");
+           
             
-            
+            this.cm2.closeConnectionUDP();
         } catch (Exception e) {
             e.printStackTrace();
         }

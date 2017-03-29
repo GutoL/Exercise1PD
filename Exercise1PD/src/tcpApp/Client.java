@@ -21,7 +21,7 @@ public class Client {
        if(cm.connectionServerTCP("localhost", 2424) == true){
            cm.sendDataTCP("div,1,2".getBytes());
            
-           System.out.println("Cliente: Enviei, esperando resposta");
+           System.out.println("ClienteTCP: Enviando operação. Esperando resposta...");
            
            byte[] data = cm.getDataTCP();
            String msg = new String(data, "UTF-8");

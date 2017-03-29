@@ -7,6 +7,7 @@ package tcpApp;
 
 import communicationManager.ConnectionManager;
 import services.Calculator;
+import services.CalculatorHelper;
 
 /**
  *
@@ -30,30 +31,22 @@ public class Thread2 extends Thread{
         
         try {
             
-             System.out.println("Uma requisição! faz as continha aqui, viado u.u");
+             System.out.println("Uma requisição!");
              byte[] data = cm.getDataTCP();
              String msg = new String(data, "UTF-8");
              String[] datas = msg.split(",");
-             String resposta = "";
+             String response = "";
              
              Calculator calculator = new Calculator();
              
-             if(datas[0].equals("add")){
-                 resposta = Float.toString(calculator.add(Float.parseFloat(datas[1]), Float.parseFloat(datas[2])));
-             }
-             else if(datas[0].equals("sub")){
-                 resposta = Float.toString(calculator.sub(Float.parseFloat(datas[1]), Float.parseFloat(datas[2])));
-             }
-             else if(datas[0].equals("mult")){
-                 resposta = Float.toString(calculator.mult(Float.parseFloat(datas[1]), Float.parseFloat(datas[2])));
-             }
-             else if(datas[0].equals("div")){
-                 resposta = Float.toString(calculator.div(Float.parseFloat(datas[1]), Float.parseFloat(datas[2])));
-             }
+             CalculatorHelper calcHelper=new CalculatorHelper();
+             response=calcHelper.calc(datas, calculator);
              
-             this.cm.sendDataTCP(resposta.getBytes());
+             this.cm.sendDataTCP(response.getBytes());
+             System.out.println("Enviando para o servidor 1");
              
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
         
