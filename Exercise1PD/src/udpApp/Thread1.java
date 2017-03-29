@@ -52,7 +52,7 @@ public class Thread1 extends Thread{
             System.out.println("Enviando para o cliente");
            
             
-            this.cm2.closeConnectionUDP();
+            this.cm2.closeSocketUDP();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -224,7 +224,7 @@ public class ConnectionManager {
         }
     }// fim do método getDataUDP
     
-    public void closeConnectionUDP(){
+    public void closeSocketUDP(){
         this.datagramSocket.close();
     }
     

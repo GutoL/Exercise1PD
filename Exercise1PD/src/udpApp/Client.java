@@ -36,7 +36,7 @@ public class Client {
             byte[] data = serverPacket.getData();
             String msg = new String(data, "UTF-8");
             System.out.println(msg);
-            cm.closeConnectionUDP();
+            cm.closeSocketUDP();
         } catch (UnknownHostException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
