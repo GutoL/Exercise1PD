@@ -28,4 +28,41 @@ public class CalculatorHelper {
         return response;
     }
     
+    public String calc(String operation, Calculator calculator){
+        
+        String[] datas = null;
+        
+        if(operation.contains("+")){
+            
+            datas = operation.split("\\+");
+            return Float.toString(calculator.add(Float.parseFloat(datas[0]), Float.parseFloat(datas[1])));
+        }
+        
+        
+        else if(operation.contains("-")){
+            
+            datas = operation.split("\\-");
+            return Float.toString(calculator.sub(Float.parseFloat(datas[0]), Float.parseFloat(datas[1])));
+        }
+        
+        else if(operation.contains("*")){
+        
+            datas = operation.split("\\*");
+            return Float.toString(calculator.mult(Float.parseFloat(datas[0]), Float.parseFloat(datas[1])));
+            
+        }
+        
+        else if(operation.contains("/")){
+            
+            
+            datas = operation.split("\\/");
+            return Float.toString(calculator.div(Float.parseFloat(datas[0]), Float.parseFloat(datas[1])));
+        }
+        
+        else{
+            return "NaN";
+        }
+        
+    }
+    
 }

@@ -38,13 +38,13 @@ public class Thread2 extends Thread{
              int clientPort=clientPacket.getPort();
              InetAddress clientAddress=clientPacket.getAddress();
              String msg = new String(data, "UTF-8");
-             String[] datas = msg.split("");
+             //String[] datas = msg.split(" ");
              String response = "";
              
              Calculator calculator = new Calculator();
              
              CalculatorHelper calcHelper=new CalculatorHelper();
-             response=calcHelper.calc(datas, calculator);
+             response=calcHelper.calc(msg, calculator);
              
              this.cm.sendDataTCP(response.getBytes());        
              this.cm.sendDataUDP(response.getBytes(),clientAddress,clientPort); 

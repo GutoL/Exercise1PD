@@ -20,7 +20,7 @@ public class Client {
        ConnectionManager cm = new ConnectionManager();
        Scanner scanner = new Scanner(System.in);
        
-       System.out.println("Digite a operação(exemplo:2+2):");
+       System.out.println("Digite a operação simples(exemplo:2+2):");
        String s = scanner.nextLine();
        
        if(cm.connectionServerTCP("localhost", 2424) == true){
