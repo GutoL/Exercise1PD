@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,11 +27,15 @@ public class Client {
        ConnectionManager cm = new ConnectionManager();
         try {
             InetAddress address=InetAddress.getByName(ADDRESS);
+            
+            Scanner scanner = new Scanner(System.in);
        
+            System.out.println("Digite a operação:");
+            String s = scanner.nextLine();
        
-            cm.sendDataUDP("div,15,2".getBytes(), address, PORT);
+            cm.sendDataUDP(s.getBytes(), address, PORT);
            
-            System.out.println("ClienteTCP: Enviando operação. Esperando resposta...");
+            System.out.println("ClienteUDP: Enviando operação. Esperando resposta...");
            
             DatagramPacket serverPacket=cm.getDataUDP();
             byte[] data = serverPacket.getData();

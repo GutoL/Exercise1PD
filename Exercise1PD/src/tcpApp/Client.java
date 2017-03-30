@@ -7,6 +7,7 @@ package tcpApp;
 
 import communicationManager.ConnectionManager;
 import java.io.UnsupportedEncodingException;
+import java.util.Scanner;
 
 /**
  *
@@ -17,9 +18,13 @@ public class Client {
     public static void main(String args[]) throws UnsupportedEncodingException{
         
        ConnectionManager cm = new ConnectionManager();
+       Scanner scanner = new Scanner(System.in);
+       
+       System.out.println("Digite a operação:");
+       String s = scanner.nextLine();
        
        if(cm.connectionServerTCP("localhost", 2424) == true){
-           cm.sendDataTCP("div,1,2".getBytes());
+           cm.sendDataTCP(s.getBytes());
            
            System.out.println("ClienteTCP: Enviando operação. Esperando resposta...");
            
@@ -27,6 +32,7 @@ public class Client {
            String msg = new String(data, "UTF-8");
            System.out.println(msg);
        }
+      
     }
     
 }

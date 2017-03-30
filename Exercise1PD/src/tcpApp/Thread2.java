@@ -34,7 +34,7 @@ public class Thread2 extends Thread{
              System.out.println("Uma requisição!");
              byte[] data = cm.getDataTCP();
              String msg = new String(data, "UTF-8");
-             String[] datas = msg.split(",");
+             String[] datas = msg.split("");
              String response = "";
              
              Calculator calculator = new Calculator();
