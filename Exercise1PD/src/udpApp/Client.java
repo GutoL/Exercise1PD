@@ -30,7 +30,7 @@ public class Client {
             
             Scanner scanner = new Scanner(System.in);
        
-            System.out.println("Digite a operação:");
+            System.out.println("Digite a operação(exemplo:2+2):");
             String s = scanner.nextLine();
        
             cm.sendDataUDP(s.getBytes(), address, PORT);
