@@ -25,26 +25,35 @@ public class Client {
     public static void main(String args[]) throws UnsupportedEncodingException{
         
        ConnectionManager cm = new ConnectionManager();
-        try {
+       String s = ""; 
+       
+       while(!s.equals("exit")){
+           
+           try {
             InetAddress address=InetAddress.getByName(ADDRESS);
             
             Scanner scanner = new Scanner(System.in);
        
-            System.out.println("Digite a operação simples(exemplo:2+2):");
-            String s = scanner.nextLine();
+            System.out.println("Digite a operação simples(exemplo:2+2) ou 'exit' para sair:");
+            s = scanner.nextLine();
        
-            cm.sendDataUDP(s.getBytes(), address, PORT);
+            if(cm.sendDataUDP(s.getBytes(), address, PORT)&&(!s.equals("exit"))){
+                System.out.println("ClienteUDP: Enviando operação. Esperando resposta...");
            
-            System.out.println("ClienteUDP: Enviando operação. Esperando resposta...");
+                DatagramPacket serverPacket=cm.getDataUDP();
+                byte[] data = serverPacket.getData();
+                String msg = new String(data, "UTF-8");
+                System.out.println(msg);
+                //cm.closeSocketUDP();
+            }
            
-            DatagramPacket serverPacket=cm.getDataUDP();
-            byte[] data = serverPacket.getData();
-            String msg = new String(data, "UTF-8");
-            System.out.println(msg);
-            cm.closeSocketUDP();
+            
         } catch (UnknownHostException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
+           
+       }
+       cm.closeSocketUDP();
        
     }
     
